@@ -17,8 +17,9 @@ export default {
 		const paths = url.pathname.split("/").filter(element => element);
 		if (paths[0] == "secure" && paths[1] == null ) {
 
-			// Get the authorized user email from request cookie, through
-			// the CF_Authorization field, and parse and decode the JWT
+			// Get the authorized user email, country, issue time from request
+			// cookie, through the CF_Authorization field, and parse and 
+			// decode the JWT
 			const cookie = parse(request.headers.get("Cookie") || "");
 			const token = cookie["CF_Authorization"];
 			if (token == null) {
@@ -27,8 +28,8 @@ export default {
 			const json = JSON.parse(atob(token.split('.')[1]));
 			const email = json.email;
 
-			// Get country and timestamp
-			const country = request.cf.country;
+			// Get country and issue time
+			const country = json.country;
 			const timestamp =  json.iat;
 			const redirect_url = "/secure/" + country;
 			const html = `<!DOCTYPE html>
