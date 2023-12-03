@@ -29,7 +29,7 @@ export default {
 
 			// Get country and timestamp
 			const country = request.cf.country;
-			const timestamp =  Date.now();
+			const timestamp =  json.iat;
 			const redirect_url = "/secure/" + country;
 			const html = `<!DOCTYPE html>
 			<body>
